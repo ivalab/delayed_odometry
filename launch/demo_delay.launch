@@ -1,0 +1,10 @@
+<launch>
+  <arg name="delay" default=".05"/>
+  <arg name="rate" default="30"/>
+
+      <node name="odometry_delayer" pkg="delayed_odometry" type="odometry_delayer">
+        <param name="delay" value="$(arg delay)"/>
+        <param name="rate" value="$(arg rate)"/>
+      </node>
+
+</launch>
