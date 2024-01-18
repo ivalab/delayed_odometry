@@ -69,6 +69,8 @@
   <exec_depend>yocs_cmd_vel_mux</exec_depend>
 
   <depend>message_filters</depend>
+  <depend>nav_msgs</depend>
+  <depend>geometry_msgs</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

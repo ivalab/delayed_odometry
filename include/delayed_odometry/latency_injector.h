@@ -22,14 +22,15 @@ class LatencyInjector
       rate_(rate),
       in_topic_(in_topic),
       out_topic_(out_topic)
-    {}
-    
-    bool init(float delay, float rate)
+    {
+      init();
+    }
+
+    bool init()
     {
       pub_ = nh_.advertise<M>(out_topic_,queue_size_);
-      pose_pub_ = nh_.advertise<M>("delayed_pose",queue_size_);
       sub_.subscribe(nh_, in_topic_, queue_size_);
-      sequencer_ = boost::make_shared<message_filters::ThrottledTimeSequencer<M> >(sub_, ros::Duration(delay), ros::Duration(1/rate), queue_size_, nh_);
+      sequencer_ = boost::make_shared<message_filters::ThrottledTimeSequencer<M> >(sub_, ros::Duration(delay_), ros::Duration(1/rate_), queue_size_, nh_);
       sequencer_->registerCallback(boost::bind(&LatencyInjector::callback, this, _1));
       return true;
     }
@@ -39,8 +40,6 @@ class LatencyInjector
     void callback(const typename M::ConstPtr& m)
     {
       pub_.publish(m);
-      //
-      pose_pub_.publish(m);
     }
 
 };

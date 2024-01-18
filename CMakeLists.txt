@@ -15,6 +15,9 @@ find_package(catkin REQUIRED COMPONENTS
   robot_state_publisher
   yocs_cmd_vel_mux
   message_filters
+  geometry_msgs
+  nav_msgs
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -128,6 +131,13 @@ add_executable(odometry_delayer
   src/odometry.cpp)
 add_dependencies(odometry_delayer ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(odometry_delayer
+   ${catkin_LIBRARIES}
+)
+
+add_executable(message_delayer 
+  src/message_delayer.cpp)
+add_dependencies(message_delayer ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(message_delayer
    ${catkin_LIBRARIES}
 )
 
