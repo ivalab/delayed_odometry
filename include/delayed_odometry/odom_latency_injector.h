@@ -35,6 +35,7 @@ class OdomLatencyInjector
       sub_.subscribe(nh_, in_topic_, queue_size_);
       sequencer_ = boost::make_shared<message_filters::ThrottledTimeSequencer<nav_msgs::Odometry> >(sub_, ros::Duration(delay), ros::Duration(1/rate), queue_size_, nh_);
       sequencer_->registerCallback(boost::bind(&OdomLatencyInjector::callback, this, _1));
+      return true;
     }
 
   private:
